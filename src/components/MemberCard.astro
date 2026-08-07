@@ -6,16 +6,46 @@ interface Props {
 }
 
 const { member } = Astro.props;
+
+const initials =
+  member.displayName
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("") || member.displayName.slice(0, 2).toUpperCase();
+
+const socialLinks =
+  member.socialLinks ??
+  (member.github
+    ? [
+        {
+          label: "GitHub",
+          href: member.github,
+        },
+      ]
+    : []);
 ---
 
 <article
   class="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/60 p-6 transition hover:-translate-y-1 hover:border-indigo-500/50"
 >
   <div
-    class="flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-500 text-xl font-bold text-white"
-    aria-hidden="true"
+    class="flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-indigo-500 text-xl font-bold text-white"
   >
-    {member.displayName.slice(0, 2).toUpperCase()}
+    {
+      member.image ? (
+        <img
+          src={member.image}
+          alt={member.displayName}
+          class="h-full w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <span>{initials}</span>
+      )
+    }
   </div>
 
   <p class="mt-6 text-sm font-semibold text-indigo-400">
@@ -33,9 +63,7 @@ const { member } = Astro.props;
   <div class="mt-6 flex flex-wrap gap-2">
     {
       member.skills.map((skill) => (
-        <span
-          class="rounded-full border border-slate-700 bg-slate-800 px-3 py-1 text-sm text-slate-300"
-        >
+        <span class="rounded-full border border-slate-700 bg-slate-800 px-3 py-1 text-sm text-slate-300">
           {skill}
         </span>
       ))
@@ -52,16 +80,16 @@ const { member } = Astro.props;
     </a>
 
     {
-      member.github && (
+      socialLinks.map((link) => (
         <a
-          href={member.github}
+          href={link.href}
           target="_blank"
           rel="noopener noreferrer"
           class="font-semibold text-slate-400 transition hover:text-white"
         >
-          GitHub
+          {link.label}
         </a>
-      )
+      ))
     }
   </div>
 </article>

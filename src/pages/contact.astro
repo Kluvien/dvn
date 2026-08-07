@@ -1,0 +1,100 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { contactMethods } from "../data/contact";
+
+const contactCategories = [
+  {
+    title: "General collaboration",
+    description:
+      "Mulai dari ide sederhana sampai kebutuhan kolaborasi yang lebih spesifik.",
+  },
+  {
+    title: "Web/Game development",
+    description:
+      "Untuk proyek website, prototype game, atau diskusi teknis lain yang relevan.",
+  },
+  {
+    title: "Digital Art",
+    description:
+      "Untuk koordinasi ilustrasi, drawing, atau kebutuhan visual yang sudah tersedia channel-nya.",
+  },
+];
+---
+
+<BaseLayout
+  title="Contact — Altiora"
+  description="Cara menghubungi Altiora untuk kolaborasi, pengembangan web, game, dan karya digital."
+>
+  <main class="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+    <section class="max-w-3xl">
+      <p
+        class="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-400"
+      >
+        Contact
+      </p>
+
+      <h1 class="mt-4 text-4xl font-bold tracking-tight text-white sm:text-6xl">
+        Let’s talk about your idea.
+      </h1>
+
+      <p class="mt-6 text-lg leading-8 text-slate-400">
+        Altiora belum menyediakan form pengiriman pesan. Untuk saat ini, silakan
+        mulai percakapan melalui channel yang benar-benar tersedia di bawah ini.
+      </p>
+    </section>
+
+    <section class="mt-14 grid gap-6 lg:grid-cols-3">
+      {
+        contactCategories.map((category, index) => (
+          <article class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 transition hover:-translate-y-1 hover:border-indigo-500/50">
+            <p class="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
+              0{index + 1}
+            </p>
+
+            <h2 class="mt-3 text-2xl font-bold text-white">{category.title}</h2>
+
+            <p class="mt-4 leading-7 text-slate-400">{category.description}</p>
+          </article>
+        ))
+      }
+    </section>
+
+    <section class="mt-8 grid gap-6 md:grid-cols-2">
+      {
+        contactMethods.map((method) => (
+          <a
+            href={method.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 transition hover:-translate-y-1 hover:border-indigo-500/50"
+          >
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-400">
+                  Available channel
+                </p>
+
+                <h2 class="mt-3 text-2xl font-bold text-white">
+                  {method.label}
+                </h2>
+              </div>
+
+              <span class="rounded-full border border-slate-700 bg-slate-800 px-3 py-1 text-xs font-semibold text-slate-300">
+                Active
+              </span>
+            </div>
+
+            <p class="mt-4 leading-7 text-slate-400">{method.note}</p>
+
+            <span class="mt-6 inline-flex items-center font-semibold text-indigo-400 transition hover:text-indigo-300">
+              Open channel
+              <span class="ml-2" aria-hidden="true">
+                ↗
+              </span>
+            </span>
+          </a>
+        ))
+      }
+    </section>
+  </main>
+</BaseLayout>

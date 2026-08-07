@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { projects, type Project } from "../../data/projects";
+import { members } from "../../data/members";
 
 export function getStaticPaths() {
   return projects.map((project) => ({
@@ -18,15 +19,17 @@ interface Props {
 }
 
 const { project } = Astro.props;
+
+const relatedMember = project.memberSlug
+  ? members.find((member) => member.slug === project.memberSlug)
+  : undefined;
 ---
 
 <BaseLayout
   title={`${project.title} — Altiora`}
   description={project.description}
 >
-  <main
-    class="mx-auto min-h-[calc(100vh-4rem)] max-w-7xl px-6 py-16 sm:py-24"
-  >
+  <main class="mx-auto min-h-[calc(100vh-4rem)] max-w-7xl px-6 py-16 sm:py-24">
     <a
       href="/projects"
       class="inline-flex items-center text-sm font-semibold text-slate-400 transition hover:text-white"
@@ -35,73 +38,128 @@ const { project } = Astro.props;
       Back to projects
     </a>
 
-    <section class="mt-12 max-w-4xl">
-      <div class="flex flex-wrap items-center gap-3">
-        <p
-          class="text-sm font-semibold uppercase tracking-[0.25em] text-indigo-400"
+    <section
+      class="mt-12 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start"
+    >
+      <div class="max-w-4xl">
+        <div class="flex flex-wrap items-center gap-3">
+          <p
+            class="text-sm font-semibold uppercase tracking-[0.25em] text-indigo-400"
+          >
+            {project.category}
+          </p>
+
+          <span
+            class="rounded-full border border-slate-700 bg-slate-900 px-3 py-1 text-xs font-medium text-slate-300"
+          >
+            {project.status}
+          </span>
+        </div>
+
+        <h1
+          class="mt-5 text-4xl font-bold tracking-tight text-white sm:text-6xl"
         >
-          {project.category}
+          {project.title}
+        </h1>
+
+        <p class="mt-6 text-lg leading-8 text-slate-300">
+          {project.description}
         </p>
 
-        <span
-          class="rounded-full border border-slate-700 bg-slate-900 px-3 py-1 text-xs font-medium text-slate-300"
-        >
-          {project.status}
-        </span>
-      </div>
+        <div class="mt-10 flex flex-wrap gap-3">
+          {
+            project.technologies.map((technology) => (
+              <span class="rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-slate-300">
+                {technology}
+              </span>
+            ))
+          }
+        </div>
 
-      <h1
-        class="mt-5 text-4xl font-bold tracking-tight text-white sm:text-6xl"
-      >
-        {project.title}
-      </h1>
+        <section class="mt-16">
+          <h2 class="text-2xl font-bold text-white">Project highlights</h2>
 
-      <p class="mt-6 text-lg leading-8 text-slate-300">
-        {project.description}
-      </p>
+          <ul class="mt-6 space-y-4">
+            {
+              project.highlights.map((highlight) => (
+                <li class="flex gap-3 leading-7 text-slate-400">
+                  <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-indigo-500" />
+                  <span>{highlight}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
 
-      <div class="mt-10 flex flex-wrap gap-3">
         {
-          project.technologies.map((technology) => (
-            <span
-              class="rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-slate-300"
+          project.repository && (
+            <a
+              href={project.repository}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-12 inline-flex rounded-lg bg-indigo-500 px-5 py-3 font-semibold text-white transition hover:bg-indigo-400"
             >
-              {technology}
-            </span>
-          ))
+              Open repository
+              <span class="ml-2" aria-hidden="true">
+                ↗
+              </span>
+            </a>
+          )
         }
       </div>
 
-      <section class="mt-16">
-        <h2 class="text-2xl font-bold text-white">
-          Project highlights
-        </h2>
-
-        <ul class="mt-6 space-y-4">
+      <aside class="space-y-6">
+        <div
+          class="overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/60"
+        >
           {
-            project.highlights.map((highlight) => (
-              <li class="flex gap-3 leading-7 text-slate-400">
-                <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-indigo-500" />
-                <span>{highlight}</span>
-              </li>
-            ))
-          }
-        </ul>
-      </section>
+            project.image ? (
+              <img
+                src={project.image}
+                alt={project.title}
+                class="h-72 w-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <div class="flex h-72 items-center justify-center bg-linear-to-br from-slate-900 via-slate-950 to-slate-900 px-8 text-center">
+                <div>
+                  <p class="text-sm font-semibold uppercase tracking-[0.25em] text-indigo-400">
+                    {project.category}
+                  </p>
 
-      {
-        project.repository && (
-          <a
-            href={project.repository}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="mt-12 inline-flex rounded-lg bg-indigo-500 px-5 py-3 font-semibold text-white transition hover:bg-indigo-400"
-          >
-            Open repository
-            <span class="ml-2" aria-hidden="true">↗</span>
-          </a>
-        )
-      }
+                  <h2 class="mt-3 text-2xl font-bold text-white">
+                    {project.title}
+                  </h2>
+
+                  <p class="mt-4 text-sm leading-6 text-slate-400">
+                    {project.status}
+                  </p>
+                </div>
+              </div>
+            )
+          }
+        </div>
+
+        {
+          relatedMember && (
+            <div class="rounded-3xl border border-slate-800 bg-slate-900/60 p-6">
+              <p class="text-sm font-semibold uppercase tracking-[0.25em] text-slate-500">
+                Member
+              </p>
+
+              <a
+                href={`/members/${relatedMember.slug}`}
+                class="mt-3 block text-2xl font-bold text-white transition hover:text-indigo-300"
+              >
+                {relatedMember.displayName}
+              </a>
+
+              <p class="mt-3 leading-7 text-slate-400">{relatedMember.role}</p>
+            </div>
+          )
+        }
+      </aside>
     </section>
   </main>
 </BaseLayout>

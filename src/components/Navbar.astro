@@ -1,57 +1,147 @@
-<header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur">
-  <nav
-    class="mx-auto flex h-full max-w-7xl items-center justify-between px-6"
-    aria-label="Navigasi utama"
-  >
-    <a
-      href="/"
-      class="text-lg font-bold uppercase tracking-[0.2em] text-white"
-    >
-      Altiora
-    </a>
-
-    <div class="hidden items-center gap-8 md:flex">
+<header
+  class="sticky top-0 z-50 border-b border-slate-800 bg-slate-950/85 backdrop-blur"
+>
+  <nav class="mx-auto max-w-7xl px-6" aria-label="Navigasi utama">
+    <div class="flex h-16 items-center justify-between gap-4">
       <a
         href="/"
-        class="text-sm font-medium text-slate-300 transition hover:text-white"
+        class="text-lg font-bold uppercase tracking-[0.2em] text-white"
       >
-        Home
+        Altiora
       </a>
 
-      <a
-        href="/about"
-        class="text-sm font-medium text-slate-300 transition hover:text-white"
+      <button
+        type="button"
+        class="inline-flex items-center justify-center rounded-lg border border-slate-800 bg-slate-900/80 px-3 py-2 text-slate-200 transition hover:border-slate-700 hover:text-white md:hidden"
+        aria-label="Buka menu navigasi"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-menu-button
       >
-        About
-      </a>
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <path d="M4 6h16"></path>
+          <path d="M4 12h16"></path>
+          <path d="M4 18h16"></path>
+        </svg>
+      </button>
+
+      <div class="hidden items-center gap-8 md:flex">
+        <a
+          href="/"
+          class="text-sm font-medium text-slate-300 transition hover:text-white"
+          >Home</a
+        >
+        <a
+          href="/about"
+          class="text-sm font-medium text-slate-300 transition hover:text-white"
+          >About</a
+        >
+        <a
+          href="/members"
+          class="text-sm font-medium text-slate-300 transition hover:text-white"
+          >Members</a
+        >
+        <a
+          href="/projects"
+          class="text-sm font-medium text-slate-300 transition hover:text-white"
+          >Projects</a
+        >
+        <a
+          href="/services"
+          class="text-sm font-medium text-slate-300 transition hover:text-white"
+          >Services</a
+        >
+      </div>
 
       <a
-        href="/members"
-        class="text-sm font-medium text-slate-300 transition hover:text-white"
+        href="/contact"
+        class="hidden rounded-lg bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400 md:inline-flex"
       >
-        Members
-      </a>
-
-      <a
-        href="/projects"
-        class="text-sm font-medium text-slate-300 transition hover:text-white"
-      >
-        Projects
-      </a>
-
-      <a
-        href="/services"
-        class="text-sm font-medium text-slate-300 transition hover:text-white"
-      >
-        Services
+        Contact
       </a>
     </div>
 
-    <a
-      href="/contact"
-      class="rounded-lg bg-indigo-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400"
+    <div
+      id="mobile-menu"
+      class="hidden border-t border-slate-800 py-4 md:hidden"
+      data-mobile-menu
     >
-      Contact
-    </a>
+      <div class="flex flex-col gap-2">
+        <a
+          href="/"
+          class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-900 hover:text-white"
+          >Home</a
+        >
+        <a
+          href="/about"
+          class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-900 hover:text-white"
+          >About</a
+        >
+        <a
+          href="/members"
+          class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-900 hover:text-white"
+          >Members</a
+        >
+        <a
+          href="/projects"
+          class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-900 hover:text-white"
+          >Projects</a
+        >
+        <a
+          href="/services"
+          class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-900 hover:text-white"
+          >Services</a
+        >
+        <a
+          href="/contact"
+          class="rounded-lg bg-indigo-500 px-3 py-2 text-sm font-semibold text-white transition hover:bg-indigo-400"
+          >Contact</a
+        >
+      </div>
+    </div>
   </nav>
+
+  <script is:inline>
+    const menuButton = document.querySelector("[data-menu-button]");
+    const mobileMenu = document.querySelector("[data-mobile-menu]");
+
+    if (menuButton && mobileMenu) {
+      const closeMenu = () => {
+        mobileMenu.classList.add("hidden");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Buka menu navigasi");
+      };
+
+      menuButton.addEventListener("click", () => {
+        const isHidden = mobileMenu.classList.contains("hidden");
+
+        if (isHidden) {
+          mobileMenu.classList.remove("hidden");
+          menuButton.setAttribute("aria-expanded", "true");
+          menuButton.setAttribute("aria-label", "Tutup menu navigasi");
+        } else {
+          closeMenu();
+        }
+      });
+
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeMenu);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeMenu();
+        }
+      });
+    }
+  </script>
 </header>

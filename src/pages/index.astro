@@ -38,11 +38,9 @@ const featuredProjects = projects.slice(0, 3);
           Ideas, creativity, and technology in one collective.
         </h1>
 
-        <p
-          class="mx-auto mt-7 max-w-2xl text-lg leading-8 text-slate-400"
-        >
-          Altiora menaungi proyek teknologi, karya kreatif, dan kolaborasi
-          yang dibangun oleh Devan bersama saudara-saudaranya.
+        <p class="mx-auto mt-7 max-w-2xl text-lg leading-8 text-slate-400">
+          Altiora menaungi proyek teknologi, karya kreatif, dan kolaborasi yang
+          dibangun oleh para anggota Altiora.
         </p>
 
         <div class="mt-10 flex flex-wrap justify-center gap-4">
@@ -65,9 +63,7 @@ const featuredProjects = projects.slice(0, 3);
 
     <!-- About -->
     <section class="border-y border-slate-800 bg-slate-900/30 px-6 py-24">
-      <div
-        class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr]"
-      >
+      <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
           <p
             class="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-400"
@@ -125,8 +121,8 @@ const featuredProjects = projects.slice(0, 3);
             </h2>
 
             <p class="mt-5 text-lg leading-8 text-slate-400">
-              Setiap anggota memiliki bidang, kemampuan, dan gaya berkarya
-              yang berbeda.
+              Setiap anggota memiliki bidang, kemampuan, dan gaya berkarya yang
+              berbeda.
             </p>
           </div>
 
@@ -140,11 +136,7 @@ const featuredProjects = projects.slice(0, 3);
         </div>
 
         <div class="mt-12 grid gap-6 md:grid-cols-2">
-          {
-            featuredMembers.map((member) => (
-              <MemberCard member={member} />
-            ))
-          }
+          {featuredMembers.map((member) => <MemberCard member={member} />)}
         </div>
       </div>
     </section>
@@ -184,11 +176,7 @@ const featuredProjects = projects.slice(0, 3);
         </div>
 
         <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {
-            featuredProjects.map((project) => (
-              <ProjectCard project={project} />
-            ))
-          }
+          {featuredProjects.map((project) => <ProjectCard project={project} />)}
         </div>
       </div>
     </section>
@@ -204,13 +192,14 @@ const featuredProjects = projects.slice(0, 3);
           Altiora
         </p>
 
-        <h2 class="mx-auto mt-4 max-w-3xl text-3xl font-bold text-white sm:text-5xl">
+        <h2
+          class="mx-auto mt-4 max-w-3xl text-3xl font-bold text-white sm:text-5xl"
+        >
           Building something greater, one project at a time.
         </h2>
 
         <p class="mx-auto mt-6 max-w-2xl leading-8 text-slate-400">
-          Jelajahi anggota dan proyek yang sedang dikembangkan melalui
-          Altiora.
+          Jelajahi anggota dan proyek yang sedang dikembangkan melalui Altiora.
         </p>
 
         <div class="mt-9 flex flex-wrap justify-center gap-4">

@@ -6,6 +6,8 @@ export interface Project {
   description: string;
   technologies: string[];
   highlights: string[];
+  image?: string;
+  memberSlug?: string;
   repository?: string;
 }
 
@@ -26,6 +28,7 @@ export const projects: Project[] = [
       "Pilihan aksi Attack, Skill, Guard, dan Item.",
       "Sistem HP, MP, critical gauge, serta efek suara.",
     ],
+    memberSlug: "devandra",
     repository: "https://github.com/Kluvien/FirstJRPG",
   },
 ];
