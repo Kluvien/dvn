@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import MemberCard from "../../components/MemberCard.astro";
+import { members } from "../../data/members";
+---
+
+<BaseLayout
+  title="Members — Altiora"
+  description="Kenali orang-orang yang membangun dan berkarya bersama Altiora."
+>
+  <main
+    class="mx-auto min-h-[calc(100vh-4rem)] max-w-7xl px-6 py-20 sm:py-28"
+  >
+    <section class="max-w-3xl">
+      <p
+        class="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-400"
+      >
+        Members
+      </p>
+
+      <h1
+        class="mt-4 text-4xl font-bold tracking-tight text-white sm:text-6xl"
+      >
+        The people behind Altiora.
+      </h1>
+
+      <p class="mt-6 text-lg leading-8 text-slate-400">
+        Setiap anggota membawa kemampuan, pengalaman, dan sudut pandang yang
+        berbeda untuk membangun karya bersama.
+      </p>
+    </section>
+
+    <section class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        members.map((member) => (
+          <MemberCard member={member} />
+        ))
+      }
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,75 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-slate-800 bg-slate-950 px-6">
+  <div
+    class="mx-auto grid max-w-7xl gap-10 py-12 md:grid-cols-[1fr_auto]"
+  >
+    <div class="max-w-md">
+      <a
+        href="/"
+        class="text-lg font-bold uppercase tracking-[0.2em] text-white"
+      >
+        Altiora
+      </a>
+
+      <p class="mt-4 leading-7 text-slate-400">
+        Identitas kolektif yang menaungi proyek teknologi, karya kreatif,
+        dan kolaborasi.
+      </p>
+    </div>
+
+    <nav
+      class="grid grid-cols-2 gap-x-10 gap-y-4 text-sm"
+      aria-label="Navigasi footer"
+    >
+      <a
+        href="/about"
+        class="text-slate-400 transition hover:text-white"
+      >
+        About
+      </a>
+
+      <a
+        href="/members"
+        class="text-slate-400 transition hover:text-white"
+      >
+        Members
+      </a>
+
+      <a
+        href="/projects"
+        class="text-slate-400 transition hover:text-white"
+      >
+        Projects
+      </a>
+
+      <a
+        href="/services"
+        class="text-slate-400 transition hover:text-white"
+      >
+        Services
+      </a>
+
+      <a
+        href="/contact"
+        class="text-slate-400 transition hover:text-white"
+      >
+        Contact
+      </a>
+    </nav>
+  </div>
+
+  <div
+    class="mx-auto flex max-w-7xl flex-col gap-2 border-t border-slate-800 py-6 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between"
+  >
+    <p>
+      © {currentYear} Altiora. All rights reserved.
+    </p>
+
+    <p>
+      Built with Astro.
+    </p>
+  </div>
+</footer>

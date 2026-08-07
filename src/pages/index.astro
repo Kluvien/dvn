@@ -1,17 +1,234 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import MemberCard from "../components/MemberCard.astro";
+import ProjectCard from "../components/ProjectCard.astro";
 
+import { members } from "../data/members";
+import { projects } from "../data/projects";
+
+const featuredMembers = members.slice(0, 2);
+const featuredProjects = projects.slice(0, 3);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Altiora — Creative & Technology Collective"
+  description="Altiora adalah kolektif kreatif dan teknologi yang menaungi karya, proyek, dan kolaborasi."
+>
+  <main>
+    <!-- Hero -->
+    <section
+      class="relative flex min-h-[calc(100vh-4rem)] items-center overflow-hidden px-6"
+    >
+      <div
+        class="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-600/20 blur-3xl"
+        aria-hidden="true"
+      >
+      </div>
+
+      <div class="relative mx-auto w-full max-w-7xl py-24 text-center">
+        <p
+          class="text-sm font-semibold uppercase tracking-[0.35em] text-indigo-400"
+        >
+          Altiora
+        </p>
+
+        <h1
+          class="mx-auto mt-5 max-w-5xl text-5xl font-bold tracking-tight text-white sm:text-7xl"
+        >
+          Ideas, creativity, and technology in one collective.
+        </h1>
+
+        <p
+          class="mx-auto mt-7 max-w-2xl text-lg leading-8 text-slate-400"
+        >
+          Altiora menaungi proyek teknologi, karya kreatif, dan kolaborasi
+          yang dibangun oleh Devan bersama saudara-saudaranya.
+        </p>
+
+        <div class="mt-10 flex flex-wrap justify-center gap-4">
+          <a
+            href="/projects"
+            class="rounded-lg bg-indigo-500 px-6 py-3 font-semibold text-white transition hover:bg-indigo-400"
+          >
+            Explore projects
+          </a>
+
+          <a
+            href="/about"
+            class="rounded-lg border border-slate-700 bg-slate-900/70 px-6 py-3 font-semibold text-slate-200 transition hover:border-slate-500 hover:text-white"
+          >
+            About Altiora
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="border-y border-slate-800 bg-slate-900/30 px-6 py-24">
+      <div
+        class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr]"
+      >
+        <div>
+          <p
+            class="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-400"
+          >
+            About
+          </p>
+
+          <h2
+            class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl"
+          >
+            A place for ideas to grow.
+          </h2>
+        </div>
+
+        <div>
+          <p class="text-lg leading-8 text-slate-300">
+            Altiora adalah identitas kolektif yang digunakan untuk
+            memperkenalkan anggota, mendokumentasikan proyek, dan menyatukan
+            berbagai karya dalam satu tempat.
+          </p>
+
+          <p class="mt-5 leading-8 text-slate-400">
+            Setiap proyek menjadi bagian dari proses belajar, eksperimen, dan
+            pengembangan kemampuan di bidang teknologi maupun kreativitas.
+          </p>
+
+          <a
+            href="/about"
+            class="mt-7 inline-flex items-center font-semibold text-indigo-400 transition hover:text-indigo-300"
+          >
+            Learn more about Altiora
+            <span class="ml-2" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Members -->
+    <section class="px-6 py-24">
+      <div class="mx-auto max-w-7xl">
+        <div
+          class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+        >
+          <div class="max-w-3xl">
+            <p
+              class="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-400"
+            >
+              Members
+            </p>
+
+            <h2
+              class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl"
+            >
+              The people behind Altiora.
+            </h2>
+
+            <p class="mt-5 text-lg leading-8 text-slate-400">
+              Setiap anggota memiliki bidang, kemampuan, dan gaya berkarya
+              yang berbeda.
+            </p>
+          </div>
+
+          <a
+            href="/members"
+            class="inline-flex shrink-0 items-center font-semibold text-indigo-400 transition hover:text-indigo-300"
+          >
+            View all members
+            <span class="ml-2" aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="mt-12 grid gap-6 md:grid-cols-2">
+          {
+            featuredMembers.map((member) => (
+              <MemberCard member={member} />
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="border-y border-slate-800 bg-slate-900/30 px-6 py-24">
+      <div class="mx-auto max-w-7xl">
+        <div
+          class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+        >
+          <div class="max-w-3xl">
+            <p
+              class="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-400"
+            >
+              Featured projects
+            </p>
+
+            <h2
+              class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl"
+            >
+              Ideas turned into working projects.
+            </h2>
+
+            <p class="mt-5 text-lg leading-8 text-slate-400">
+              Proyek yang menunjukkan proses pengembangan, pemecahan masalah,
+              dan eksplorasi teknologi.
+            </p>
+          </div>
+
+          <a
+            href="/projects"
+            class="inline-flex shrink-0 items-center font-semibold text-indigo-400 transition hover:text-indigo-300"
+          >
+            View all projects
+            <span class="ml-2" aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {
+            featuredProjects.map((project) => (
+              <ProjectCard project={project} />
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="px-6 py-24">
+      <div
+        class="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-indigo-500/30 bg-indigo-500/10 px-6 py-16 text-center sm:px-12"
+      >
+        <p
+          class="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-400"
+        >
+          Altiora
+        </p>
+
+        <h2 class="mx-auto mt-4 max-w-3xl text-3xl font-bold text-white sm:text-5xl">
+          Building something greater, one project at a time.
+        </h2>
+
+        <p class="mx-auto mt-6 max-w-2xl leading-8 text-slate-400">
+          Jelajahi anggota dan proyek yang sedang dikembangkan melalui
+          Altiora.
+        </p>
+
+        <div class="mt-9 flex flex-wrap justify-center gap-4">
+          <a
+            href="/projects"
+            class="rounded-lg bg-indigo-500 px-6 py-3 font-semibold text-white transition hover:bg-indigo-400"
+          >
+            Browse projects
+          </a>
+
+          <a
+            href="/members"
+            class="rounded-lg border border-slate-700 px-6 py-3 font-semibold text-slate-200 transition hover:border-slate-500 hover:text-white"
+          >
+            Meet the members
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
