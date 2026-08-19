@@ -1,16 +1,45 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
-import { projects } from "../../data/projects";
+
+interface Project {
+  title: string;
+  description: string;
+  thumbnail: string | null;
+  link: string;
+}
+
+interface ProjectsApiResponse {
+  data: Project[];
+}
+
+const API_URL = "http://127.0.0.1:8000/api/v1/projects";
+
+let projects: Project[] = [];
+let fetchError = "";
+
+try {
+  const response = await fetch(API_URL);
+
+  if (!response.ok) {
+    throw new Error(`Request failed with status ${response.status}`);
+  }
+
+  const json: ProjectsApiResponse = await response.json();
+  projects = Array.isArray(json?.data) ? json.data : [];
+} catch (error) {
+  fetchError =
+    error instanceof Error
+      ? error.message
+      : "Terjadi kesalahan saat mengambil data proyek.";
+}
 ---
 
 <BaseLayout
   title="Projects — Altiora"
   description="Jelajahi proyek game, website, dan karya digital yang dikembangkan melalui Altiora."
 >
-  <main
-    class="mx-auto min-h-[calc(100vh-4rem)] max-w-7xl px-6 py-20 sm:py-28"
-  >
+  <main class="mx-auto min-h-[calc(100vh-4rem)] max-w-7xl px-6 py-20 sm:py-28">
     <section class="max-w-3xl">
       <p
         class="text-sm font-semibold uppercase tracking-[0.3em] text-indigo-400"
@@ -18,9 +47,7 @@ import { projects } from "../../data/projects";
         Projects
       </p>
 
-      <h1
-        class="mt-4 text-4xl font-bold tracking-tight text-white sm:text-6xl"
-      >
+      <h1 class="mt-4 text-4xl font-bold tracking-tight text-white sm:text-6xl">
         Ideas turned into working projects.
       </h1>
 
@@ -30,12 +57,30 @@ import { projects } from "../../data/projects";
       </p>
     </section>
 
-    <section class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {
-        projects.map((project) => (
-          <ProjectCard project={project} />
-        ))
-      }
-    </section>
+    {
+      fetchError && (
+        <div class="mt-14 rounded-lg border border-red-500/40 bg-red-950/40 p-4 text-red-300">
+          Gagal memuat data proyek: {fetchError}
+        </div>
+      )
+    }
+
+    {
+      !fetchError && projects.length === 0 && (
+        <div class="mt-14 rounded-lg border border-slate-700 bg-slate-900 p-6 text-slate-300">
+          Belum ada data proyek.
+        </div>
+      )
+    }
+
+    {
+      !fetchError && projects.length > 0 && (
+        <section class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </section>
+      )
+    }
   </main>
 </BaseLayout>
